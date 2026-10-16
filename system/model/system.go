@@ -3,7 +3,7 @@ package model
 import "errors"
 
 type System struct {
-	slot [2]Slot
+	slot [3]Slot
 }
 
 func (s *System) GetSlot(index int) (Slot, error) {
@@ -12,4 +12,8 @@ func (s *System) GetSlot(index int) (Slot, error) {
 	}
 
 	return s.slot[index], nil
+}
+
+func (s *System) AvailableSlots() int {
+	return len(s.slot)
 }

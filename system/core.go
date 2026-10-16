@@ -4,6 +4,7 @@ import (
 	"encoding/json/v2"
 	"errors"
 	"log"
+	"log/slog"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -36,6 +37,12 @@ func Initialize() {
 	// Create the main folder.
 	files := filepath.Join(docs, "__files")
 	err = os.Mkdir(files, os.ModePerm)
+
+	if errors.Is(err, os.ErrExist) {
+		slog.Debug("Directory already exists, skipping initialization.")
+		return
+	}
+
 	if err != nil {
 		log.Fatal(err)
 	}

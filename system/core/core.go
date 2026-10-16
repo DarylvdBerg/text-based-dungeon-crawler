@@ -1,4 +1,4 @@
-package system
+package core
 
 import (
 	"encoding/json/v2"
@@ -97,9 +97,17 @@ func WriteSave(system model.System, index int) {
 	err = os.WriteFile(saveFileDir, data, os.ModePerm)
 }
 
-func ReadSave(index int) model.Slot {
-	file := filepath.Join(getFilesDir(), "save/"+strconv.Itoa(index+1))
+func ReadSave(index int) *model.Slot {
+	file := filepath.Join(getFilesDir(), "save/"+strconv.Itoa(index+1)+".json")
 	data, err := os.ReadFile(file)
+
+	slog.Debug("Read save file", slog.String("file", file))
+
+	if errors.Is(err, os.ErrNotExist) {
+		slog.Debug("File does not exist", slog.String("file", file))
+		return nil
+	}
+
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -110,5 +118,5 @@ func ReadSave(index int) model.Slot {
 		log.Fatal(err)
 	}
 
-	return slot
+	return &slot
 }

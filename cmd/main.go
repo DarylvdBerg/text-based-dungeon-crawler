@@ -5,7 +5,8 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/DarylvdBerg/text-based-dungeon-crawler/system"
+	"github.com/DarylvdBerg/text-based-dungeon-crawler/system/core"
+	"github.com/DarylvdBerg/text-based-dungeon-crawler/system/model"
 )
 
 func setupLogging() (*os.File, error) {
@@ -37,6 +38,22 @@ func main() {
 		}
 	}(f)
 
-	// Initialize the main folders we'll need to store game information
-	system.Initialize()
+	system := model.System{}
+	core.Initialize()
+
+	slotsAvailable := system.AvailableSlots()
+
+	var slots []string
+	for i := range slotsAvailable {
+		slot := core.ReadSave(i)
+		if slot != nil {
+			slots = append(slots, slot.Name)
+		} else {
+			slots = append(slots, "New Game")
+		}
+	}
+
+	for i := range slotsAvailable {
+		println(slots[i])
+	}
 }

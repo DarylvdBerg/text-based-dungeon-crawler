@@ -1,10 +1,11 @@
 package stats
 
 type Stats struct {
-	strength     int
-	dexterity    int
-	constitution int
-	intelligence int
-	wisdom       int
-	charisma     int
+	MaxHealth    int
+	Strength     int
+	Dexterity    int
+	Constitution int
+	Intelligence int
+	Wisdom       int
+	Charisma     int
 }

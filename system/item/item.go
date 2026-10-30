@@ -1,6 +1,9 @@
 package item
 
-import "github.com/DarylvdBerg/text-based-dungeon-crawler/system/stats"
+import (
+	"github.com/DarylvdBerg/text-based-dungeon-crawler/system/player"
+	"github.com/DarylvdBerg/text-based-dungeon-crawler/system/stats"
+)
 
 type Item interface {
 	Name() string
@@ -9,7 +12,7 @@ type Item interface {
 
 type Consumable interface {
 	Item
-	Use() string
+	Use(p *player.Player)
 }
 
 type Equipment struct {

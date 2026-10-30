@@ -1,8 +1,11 @@
 package item
 
+import "github.com/DarylvdBerg/text-based-dungeon-crawler/system/player"
+
 var _ Consumable = HealthPotion{}
 
 type HealthPotion struct {
+	Amount int
 }
 
 // Name implements [Consumable].
@@ -16,6 +19,6 @@ func (h HealthPotion) Description() string {
 }
 
 // Use implements [Consumable].
-func (h HealthPotion) Use() string {
-	panic("unimplemented")
+func (h HealthPotion) Use(p *player.Player) {
+	p.IncreaseHealth(h.Amount)
 }

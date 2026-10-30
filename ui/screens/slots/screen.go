@@ -5,10 +5,10 @@ import (
 	"strings"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/DarylvdBerg/text-based-dungeon-crawler/system/model"
+	model "github.com/DarylvdBerg/text-based-dungeon-crawler/system"
 )
 
-type ChosenMsg struct {
+type ChosenSlot struct {
 	Index int
 	Slot  *model.Slot
 }
@@ -56,7 +56,7 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			}
 		case "enter":
 			i := m.cursor
-			return m, func() tea.Msg { return ChosenMsg{Index: i, Slot: m.slots[i]} }
+			return m, func() tea.Msg { return ChosenSlot{Index: i, Slot: m.slots[i]} }
 		}
 	}
 

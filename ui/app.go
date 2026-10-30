@@ -24,8 +24,27 @@ func (a App) Init() tea.Cmd {
 
 func (a App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
+
+	// Load new save slot
 	case slotsLoadedMsg:
 		return a.show(slots.New(msg.slots))
+	
+	// Handle chosen slot
+	//case ChosenSlot:
+		 
+
+	// Handle key input
+	case tea.KeyPressMsg:
+		switch msg.String() {
+		case "ctrl+c", "q":
+			return a, tea.Quit
+		case "tab":
+			a.focus = (a.focus + 1) % len(a.screens)
+			return a, nil
+		case "shift+tab":
+			a.focus = (a.focus - 1 + len(a.screens)) % len(a.screens)
+			return a, nil
+		}
 	}
 
 	var cmds []tea.Cmd

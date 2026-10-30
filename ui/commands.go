@@ -2,8 +2,8 @@ package ui
 
 import (
 	tea "charm.land/bubbletea/v2"
+	model "github.com/DarylvdBerg/text-based-dungeon-crawler/system"
 	"github.com/DarylvdBerg/text-based-dungeon-crawler/system/core"
-	"github.com/DarylvdBerg/text-based-dungeon-crawler/system/model"
 )
 
 type slotsLoadedMsg struct {

@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"strconv"
 
-	"github.com/DarylvdBerg/text-based-dungeon-crawler/system/model"
+	model "github.com/DarylvdBerg/text-based-dungeon-crawler/system"
 )
 
 // Initialize will set up the main system folder /**

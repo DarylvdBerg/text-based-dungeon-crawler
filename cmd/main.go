@@ -5,8 +5,9 @@ import (
 	"log/slog"
 	"os"
 
+	tea "charm.land/bubbletea/v2"
 	"github.com/DarylvdBerg/text-based-dungeon-crawler/system/core"
-	"github.com/DarylvdBerg/text-based-dungeon-crawler/system/model"
+	"github.com/DarylvdBerg/text-based-dungeon-crawler/ui"
 )
 
 func setupLogging() (*os.File, error) {
@@ -38,22 +39,11 @@ func main() {
 		}
 	}(f)
 
-	system := model.System{}
+	//system := model.System{}
 	core.Initialize()
-
-	slotsAvailable := system.AvailableSlots()
-
-	var slots []string
-	for i := range slotsAvailable {
-		slot := core.ReadSave(i)
-		if slot != nil {
-			slots = append(slots, slot.Name)
-		} else {
-			slots = append(slots, "New Game")
-		}
-	}
-
-	for i := range slotsAvailable {
-		println(slots[i])
+	p := tea.NewProgram(ui.New())
+	if _, err := p.Run(); err != nil {
+		slog.Error("tui crashed", slog.Any("err", err))
+		os.Exit(1)
 	}
 }
